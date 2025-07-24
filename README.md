@@ -1,7 +1,7 @@
 # Deep Researcher
 
-A Deep Researcher Agent is built with Google's Agent Development Kit (ADK)
-Agent generated with [`googleCloudPlatform/agent-starter-pack`](https://github.com/GoogleCloudPlatform/agent-starter-pack) version `0.7.0`
+A Deep Researcher Agent is built with Google's Agent Development Kit (ADK).
+The agent layout is generated with [`googleCloudPlatform/agent-starter-pack`](https://github.com/GoogleCloudPlatform/agent-starter-pack) version `0.7.0`
 
 ## Project Structure
 

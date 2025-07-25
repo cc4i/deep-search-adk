@@ -27,6 +27,11 @@ Before you begin, ensure you have:
 - **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
 - **Terraform**: For infrastructure deployment - [Install](https://developer.hashicorp.com/terraform/downloads)
 - **make**: Build automation tool - [Install](https://www.gnu.org/software/make/) (pre-installed on most Unix-based systems)
+- Add .env file under ./app folder with following pairs
+```
+GOOGLE_API_KEY=<PASTE_YOUR_ACTUAL_API_KEY_HERE>
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+```
 
 
 ## Quick Start (Local Testing)

@@ -16,7 +16,7 @@ playground:
 # Usage: make backend [IAP=true] [PORT=8080] - Set IAP=true to enable Identity-Aware Proxy, PORT to specify container port
 cloud-run-backend:
 	PROJECT_ID=$$(gcloud config get-value project) && \
-	gcloud beta run deploy fun-agents-adk \
+	gcloud beta run deploy deep-search-adk \
 		--source . \
 		--memory "4Gi" \
 		--project $$PROJECT_ID \

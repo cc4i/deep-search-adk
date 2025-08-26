@@ -1,7 +1,6 @@
 # Deep Researcher
 
 A Deep Researcher Agent is built with Google's Agent Development Kit (ADK).
-The agent layout is generated with [`googleCloudPlatform/agent-starter-pack`](https://github.com/GoogleCloudPlatform/agent-starter-pack) version `0.7.0`
 
 ## Project Structure
 
@@ -22,78 +21,55 @@ fun-agents-adk/
 
 ## Requirements
 
-Before you begin, ensure you have:
-- **uv**: Python package manager - [Install](https://docs.astral.sh/uv/getting-started/installation/)
-- **Google Cloud SDK**: For GCP services - [Install](https://cloud.google.com/sdk/docs/install)
-- **Terraform**: For infrastructure deployment - [Install](https://developer.hashicorp.com/terraform/downloads)
-- **make**: Build automation tool - [Install](https://www.gnu.org/software/make/) (pre-installed on most Unix-based systems)
-- Add .env file under ./app folder with following pairs
-```
-GOOGLE_API_KEY=<PASTE_YOUR_ACTUAL_API_KEY_HERE>
+- Python  3.12+
+- Install packages: google-adk, agent-starter-pack
+- Get GEMINI API KEY
+- VSCODE
+- Install gcloud (Ignore if no GCP account)
+
+
+## Code 1 - Warm UP 
+
+```bash
+
+agent-starter-pack create base-agent-adk
+
+cd base-agent-adk
+
+# Add your Gemini API Key
+vi app/.env 
+>>>
+GOOGLE_API_KEY="???"
 GOOGLE_GENAI_USE_VERTEXAI=FALSE
+<<<
+
+# Run agent locally
+make playground
+
+# Deploy agent into GCP
+make backend (ignore if no GCP account)
+
 ```
 
-
-## Quick Start (Local Testing)
-
-Install required packages and launch the local development environment:
+## Code 2 - Deep Search
 
 ```bash
-make install && make playground
+git clone https://github.com/cc4i/deep-search-adk
+
+cd deep-search-adk
+
+# Add your Gemini API Key
+vi app/.env 
+>>>
+GOOGLE_API_KEY="???"
+GOOGLE_GENAI_USE_VERTEXAI=FALSE
+<<<
+
+# Copy all code form app/guidance.md by order
+
+# Run agent locally
+make playground
+
+# Deploy agent into GCP
+make backend (ignore if no GCP account)
 ```
-
-## Commands
-
-| Command | Description |
-| --- | --- |
-| `make install` | Install all required dependencies using uv |
-| `make playground` | Launch local development environment with backend and frontend - leveraging `adk web` command.|
-| `make cloud-run-backend` | Deploy agent to Cloud Run |
-| `make agent-engine-backend` | Launch local agent engine server |
-| `make local-backend` | Launch local development server |
-| `make test` | Run unit and integration tests |
-| `make lint` | Run code quality checks (codespell, ruff, mypy) |
-| `make setup-dev-env` | Set up development environment resources using Terraform |
-| `uv run jupyter lab` | Launch Jupyter notebook |
-
-For full command options and usage, refer to the [Makefile](Makefile).
-
-
-## Usage
-
-This template follows a "bring your own agent" approach - you focus on your business logic, and the template handles everything else (UI, infrastructure, deployment, monitoring).
-
-1. **Prototype:** Build your Generative AI Agent using the intro notebooks in `notebooks/` for guidance. Use Vertex AI Evaluation to assess performance.
-2. **Integrate:** Import your agent into the app by editing `app/agent.py`.
-3. **Test:** Explore your agent functionality using the Streamlit playground with `make playground`. The playground offers features like chat history, user feedback, and various input types, and automatically reloads your agent on code changes.
-4. **Deploy:** Set up and initiate the CI/CD pipelines, customizing tests as necessary. Refer to the [deployment section](#deployment) for comprehensive instructions. For streamlined infrastructure deployment, simply run `uvx agent-starter-pack setup-cicd`. Check out the [`agent-starter-pack setup-cicd` CLI command](https://googlecloudplatform.github.io/agent-starter-pack/cli/setup_cicd.html). Currently only supporting Github.
-5. **Monitor:** Track performance and gather insights using Cloud Logging, Tracing, and the Looker Studio dashboard to iterate on your application.
-
-
-## Deployment
-
-> **Note:** For a streamlined one-command deployment of the entire CI/CD pipeline and infrastructure using Terraform, you can use the [`agent-starter-pack setup-cicd` CLI command](https://googlecloudplatform.github.io/agent-starter-pack/cli/setup_cicd.html). Currently only supporting Github.
-
-### Dev Environment
-
-You can test deployment towards a Dev Environment using the following command:
-
-```bash
-gcloud config set project <your-dev-project-id>
-make cloud-run-backend
-```
-
-
-The repository includes a Terraform configuration for the setup of the Dev Google Cloud project.
-See [deployment/README.md](deployment/README.md) for instructions.
-
-### Production Deployment
-
-The repository includes a Terraform configuration for the setup of a production Google Cloud project. Refer to [deployment/README.md](deployment/README.md) for detailed instructions on how to deploy the infrastructure and application.
-
-
-## Monitoring and Observability
-> You can use [this Looker Studio dashboard](https://lookerstudio.google.com/reporting/46b35167-b38b-4e44-bd37-701ef4307418/page/tEnnC
-) template for visualizing events being logged in BigQuery. See the "Setup Instructions" tab to getting started.
-
-The application uses OpenTelemetry for comprehensive observability with all events being sent to Google Cloud Trace and Logging for monitoring and to BigQuery for long term storage.

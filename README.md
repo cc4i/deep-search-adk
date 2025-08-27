@@ -28,7 +28,8 @@ fun-agents-adk/
 - Install gcloud (Ignore if no GCP account)
 
 
-## Code 1 - Warm UP 
+## Coding 
+### Code 1 - Warm UP 
 
 ```bash
 
@@ -46,12 +47,12 @@ GOOGLE_GENAI_USE_VERTEXAI=FALSE
 # Run agent locally
 make playground
 
-# Deploy agent into GCP
-make backend (ignore if no GCP account)
+# Deploy agent into Cloud Run
+make cloud-run-backend (ignore if no GCP account)
 
 ```
 
-## Code 2 - Deep Search
+### Code 2 - Deep Search
 
 ```bash
 git clone https://github.com/cc4i/deep-search-adk
@@ -70,6 +71,33 @@ GOOGLE_GENAI_USE_VERTEXAI=FALSE
 # Run agent locally
 make playground
 
-# Deploy agent into GCP
-make backend (ignore if no GCP account)
+# Deploy agent into Cloud Run
+make cloud-run-backend (ignore if no GCP account)
+```
+
+## Deploy onto AgentEngine 
+
+```bash
+# Deploy the agent into AgentEngine
+make agent-engine-backend
+```
+
+## Register into Agentspace
+
+```bash
+curl -X POST \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    -H "Content-Type: application/json" \
+    -H "X-Goog-User-Project: <project_id>" \
+    "https://discoveryengine.googleapis.com/v1alpha/projects/<project_id>/locations/global/collections/default_collection/engines/<agentspace_id>/assistants/default_assistant/agents" \
+    -d '{
+        "displayName": "Deep Research ADK v1",
+        "description": "A specialized assistant for customized Deep Research.",
+        "adk_agent_definition": {
+            "tool_settings": {
+                "tool_description": "A specialized assistant for customized Deep Research and report."
+              },
+            "provisioned_reasoning_engine": { "reasoning_engine": "projects/<project_id>/locations/<region>/reasoningEngines/<agent_id>"}
+        }
+    }'
 ```

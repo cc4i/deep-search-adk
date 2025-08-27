@@ -1,15 +1,18 @@
 [project]
-name = "fun-agents-adk"
+name = "deep-search-adk"
 version = "0.1.0"
 description = ""
 authors = [
     {name = "CC", email = "cc@email.com"},
 ]
 dependencies = [
-    "google-adk~=1.7.0",
+    "google-adk~=1.12.0",
     "opentelemetry-exporter-gcp-trace~=1.9.0",
+    "google-cloud-logging~=3.12.1",
+    "google-cloud-aiplatform[evaluation,agent-engines]~=1.110.0",
+
     "fastapi~=0.115.8",
-    "uvicorn~=0.34.0"
+    "uvicorn~=0.34.3"
 ]
 #"google-cloud-logging~=3.11.4",
 #"google-cloud-aiplatform[evaluation]~=1.99.0",

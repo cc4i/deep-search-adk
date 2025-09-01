@@ -85,6 +85,7 @@ make agent-engine-backend
 ## Register into Agentspace
 
 ```bash
+# Register agent into Agentspace
 curl -X POST \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
@@ -100,4 +101,18 @@ curl -X POST \
             "provisioned_reasoning_engine": { "reasoning_engine": "projects/<project_id>/locations/<region>/reasoningEngines/<agent_id>"}
         }
     }'
+
+# Patch the agent
+...
+
+# Deregister agent
+...
+
+# List all agent in the Agentspace
+curl -X GET \
+    -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+    -H "Content-Type: application/json" \
+    -H "X-Goog-User-Project: <project_id>" \
+    "https://discoveryengine.googleapis.com/v1alpha/projects/<project_id>/locations/global/collections/default_collection/engines/<agentspace_id>/assistants/default_assistant/agents"
+
 ```
